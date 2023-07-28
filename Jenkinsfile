@@ -40,7 +40,7 @@ pipeline {
 					def token;
 					try{
 					def getTokenResp = httpRequest acceptType: 'APPLICATION_JSON', 
-						authentication: env.CPIOAuthCredentials, 
+						authentication: 'CPI_OAUTH_CRED', 
 						contentType: 'APPLICATION_JSON', 
 						httpMode: 'POST', 
 						responseHandle: 'LEAVE_OPEN', 
