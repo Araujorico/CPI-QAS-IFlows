@@ -38,6 +38,7 @@ pipeline {
 					//get token
 					println("Request token");
 					def token;
+					println("Request token ate aqui escreve ");
 					try{
 					def getTokenResp = httpRequest acceptType: 'APPLICATION_JSON', 
 						authentication: env.CPIOAuthCredentials, 
