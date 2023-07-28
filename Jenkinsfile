@@ -3,7 +3,7 @@ pipeline {
 
 	//Configure the following environment variables before executing the Jenkins Job	
 	environment {
-		IntegrationFlowID = "COD_CRM_BusinessPartner_Replicate"
+		IntegrationFlowID = "IF_IG004_Generic_XI_proxy_Router_from_ECC_DEV"
 		CPIHost = "${env.CPI_HOST}"
 		CPIOAuthHost = "${env.CPI_OAUTH_HOST}"
 		CPIOAuthCredentials = "${env.CPI_OAUTH_CRED}"	
