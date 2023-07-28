@@ -30,13 +30,27 @@ pipeline {
 						],
 						submoduleCfg: [],
 						userRemoteConfigs: [[
-							credentialsId: 'GIT_CRED',
+							credentialsId: env.GITCredentials,
 							url: 'https://' + env.GITRepositoryURL
 						]]
 					])
 					
 					//get token
-				
+					println("Request token");
+					def token;
+					try{
+					def getTokenResp = httpRequest acceptType: 'APPLICATION_JSON', 
+						authentication: env.CPIOAuthCredentials, 
+						contentType: 'APPLICATION_JSON', 
+						httpMode: 'POST', 
+						responseHandle: 'LEAVE_OPEN', 
+						timeout: 30, 
+						url: 'https://' + env.CPIOAuthHost + '/oauth/token?grant_type=client_credentials';
+					def jsonObjToken = readJSON text: getTokenResp.content
+					token = "Bearer " + jsonObjToken.access_token
+				   	} catch (Exception e) {
+						error("Requesting the oauth token for Cloud Integration failed:\n${e}")
+					}
 					//delete the old flow content so that only the latest content gets stored
 					dir(env.GITFolder + '/' + env.IntegrationFlowID){
 						deleteDir();
@@ -45,7 +59,7 @@ pipeline {
 					println("Downloading artefact");
 					def tempfile = UUID.randomUUID().toString() + ".zip";
 					def cpiDownloadResponse = httpRequest acceptType: 'APPLICATION_ZIP', 
-						customHeaders: [[maskValue: false, name: 'Authorization', value: 'iiiii']], 
+						customHeaders: [[maskValue: false, name: 'Authorization', value: token]], 
 						ignoreSslErrors: false, 
 						responseHandle: 'LEAVE_OPEN', 
 						validResponseCodes: '100:399, 404',
