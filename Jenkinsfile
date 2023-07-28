@@ -46,8 +46,8 @@ pipeline {
 						responseHandle: 'LEAVE_OPEN', 
 						timeout: 30, 
 						url: 'https://oauthasservices-a312278b9.hana.ondemand.com/oauth2/api/v1/token?grant_type=client_credentials';
-					def jsonObjToken = readJSON text: getTokenResp.content
-					token = "Bearer " + jsonObjToken.access_token
+					def jsonObjToken = readJSON text: getTokenResp.content;
+					token = "Bearer " + jsonObjToken.access_token;
 						println("Request token END");
 
 						
