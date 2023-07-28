@@ -45,7 +45,7 @@ pipeline {
 					println("Downloading artefact");
 					def tempfile = UUID.randomUUID().toString() + ".zip";
 					def cpiDownloadResponse = httpRequest acceptType: 'APPLICATION_ZIP', 
-						customHeaders: [[maskValue: false, name: 'Authorization', value: token]], 
+						customHeaders: [[maskValue: false, name: 'Authorization', value: 'iiiii']], 
 						ignoreSslErrors: false, 
 						responseHandle: 'LEAVE_OPEN', 
 						validResponseCodes: '100:399, 404',
