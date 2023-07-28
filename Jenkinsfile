@@ -3,7 +3,7 @@ pipeline {
 
 	//Configure the following environment variables before executing the Jenkins Job	
 	environment {
-		IntegrationFlowID = "CPILearning"
+		IntegrationFlowID = "COD_CRM_BusinessPartner_Replicate"
 		CPIHost = "${env.CPI_HOST}"
 		CPIOAuthHost = "${env.CPI_OAUTH_HOST}"
 		CPIOAuthCredentials = "${env.CPI_OAUTH_CRED}"	
