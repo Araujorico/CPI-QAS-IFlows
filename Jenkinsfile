@@ -45,7 +45,7 @@ pipeline {
 						httpMode: 'POST', 
 						responseHandle: 'LEAVE_OPEN', 
 						timeout: 30, 
-						url: 'https://' + env.CPIOAuthHost + '/oauth/token?grant_type=client_credentials';
+						url: 'https://oauthasservices-a312278b9.hana.ondemand.com/oauth2/api/v1/token';
 					def jsonObjToken = readJSON text: getTokenResp.content
 					token = "Bearer " + jsonObjToken.access_token
 				   	} catch (Exception e) {
