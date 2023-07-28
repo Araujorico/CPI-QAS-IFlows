@@ -3,7 +3,7 @@ pipeline {
 
 	//Configure the following environment variables before executing the Jenkins Job	
 	environment {
-		IntegrationFlowID = "CPILearning"
+		IntegrationFlowID = "IntegrationFlow1"
 		CPIHost = "${env.CPI_HOST}"
 		CPIOAuthHost = "${env.CPI_OAUTH_HOST}"
 		CPIOAuthCredentials = "${env.CPI_OAUTH_CRED}"	
@@ -38,7 +38,6 @@ pipeline {
 					//get token
 					println("Request token");
 					def token;
-					println("Request token ate aqui escreve ");
 					try{
 					def getTokenResp = httpRequest acceptType: 'APPLICATION_JSON', 
 						authentication: env.CPIOAuthCredentials, 
@@ -46,25 +45,17 @@ pipeline {
 						httpMode: 'POST', 
 						responseHandle: 'LEAVE_OPEN', 
 						timeout: 30, 
-						url: 'https://oauthasservices-a312278b9.hana.ondemand.com/oauth2/api/v1/token?grant_type=client_credentials';
-					def jsonObjToken = readJSON text: getTokenResp.content;
-					token = "Bearer " + jsonObjToken.access_token;
-						println("Request token END");
-
-						
+						url: 'https://' + env.CPIOAuthHost + '/oauth/token?grant_type=client_credentials';
+					def jsonObjToken = readJSON text: getTokenResp.content
+					token = "Bearer " + jsonObjToken.access_token
 				   	} catch (Exception e) {
-						//error("Requesting the oauth token for Cloud Integration failed:\n${e}")
-						println("Error getting the token");
+						error("Requesting the oauth token for Cloud Integration failed:\n${e}")
 					}
 					//delete the old flow content so that only the latest content gets stored
-					
-					println("delete the old flow");
-					
 					dir(env.GITFolder + '/' + env.IntegrationFlowID){
 						deleteDir();
 					}
 					//download and extract artefact from tenant
-					
 					println("Downloading artefact");
 					def tempfile = UUID.randomUUID().toString() + ".zip";
 					def cpiDownloadResponse = httpRequest acceptType: 'APPLICATION_ZIP', 
