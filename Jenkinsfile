@@ -48,14 +48,22 @@ pipeline {
 						url: 'https://oauthasservices-a312278b9.hana.ondemand.com/oauth2/api/v1/token?grant_type=client_credentials';
 					def jsonObjToken = readJSON text: getTokenResp.content
 					token = "Bearer " + jsonObjToken.access_token
+						println(token);
+
+						
 				   	} catch (Exception e) {
 						error("Requesting the oauth token for Cloud Integration failed:\n${e}")
+						println("Error getting the token");
 					}
 					//delete the old flow content so that only the latest content gets stored
+					
+					println("delete the old flow");
+					
 					dir(env.GITFolder + '/' + env.IntegrationFlowID){
 						deleteDir();
 					}
 					//download and extract artefact from tenant
+					
 					println("Downloading artefact");
 					def tempfile = UUID.randomUUID().toString() + ".zip";
 					def cpiDownloadResponse = httpRequest acceptType: 'APPLICATION_ZIP', 
