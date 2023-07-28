@@ -48,7 +48,7 @@ pipeline {
 						url: 'https://oauthasservices-a312278b9.hana.ondemand.com/oauth2/api/v1/token?grant_type=client_credentials';
 					def jsonObjToken = readJSON text: getTokenResp.content
 					token = "Bearer " + jsonObjToken.access_token
-						println(token);
+						println("Request token END");
 
 						
 				   	} catch (Exception e) {
