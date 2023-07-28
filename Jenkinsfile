@@ -30,7 +30,7 @@ pipeline {
 						],
 						submoduleCfg: [],
 						userRemoteConfigs: [[
-							credentialsId: 'GIT_CRED'
+							credentialsId: 'GIT_CRED',
 							url: 'https://' + env.GITRepositoryURL
 						]]
 					])
