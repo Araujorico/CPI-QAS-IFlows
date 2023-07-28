@@ -39,7 +39,7 @@ pipeline {
 					println("Request token");
 					def token;
 					println("Request token ate aqui escreve ");
-					//try{
+					try{
 					def getTokenResp = httpRequest acceptType: 'APPLICATION_JSON', 
 						authentication: env.CPIOAuthCredentials, 
 						contentType: 'APPLICATION_JSON', 
@@ -52,10 +52,10 @@ pipeline {
 						println("Request token END");
 
 						
-				   	//} catch (Exception e) {
+				   	} catch (Exception e) {
 						//error("Requesting the oauth token for Cloud Integration failed:\n${e}")
 						println("Error getting the token");
-					//}
+					}
 					//delete the old flow content so that only the latest content gets stored
 					
 					println("delete the old flow");
